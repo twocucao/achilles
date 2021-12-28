@@ -7,36 +7,36 @@ import (
 )
 
 //@author: [piexlmax](https://github.com/piexlmax)
-//@function: CreateSysDictionaryDetail
+//@function: CreateSysDictItem
 //@description: 创建字典详情数据
-//@param: sysDictionaryDetail model.SysDictionaryDetail
+//@param: sysDictionaryDetail model.SysDictItem
 //@return: err error
 
 type DictionaryDetailService struct{}
 
-func (dictionaryDetailService *DictionaryDetailService) CreateSysDictionaryDetail(sysDictionaryDetail system.SysDictionaryDetail) (err error) {
+func (dictionaryDetailService *DictionaryDetailService) CreateSysDictionaryDetail(sysDictionaryDetail system.SysDictItem) (err error) {
 	err = global.GVA_DB.Create(&sysDictionaryDetail).Error
 	return err
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)
-//@function: DeleteSysDictionaryDetail
+//@function: DeleteSysDictItem
 //@description: 删除字典详情数据
-//@param: sysDictionaryDetail model.SysDictionaryDetail
+//@param: sysDictionaryDetail model.SysDictItem
 //@return: err error
 
-func (dictionaryDetailService *DictionaryDetailService) DeleteSysDictionaryDetail(sysDictionaryDetail system.SysDictionaryDetail) (err error) {
+func (dictionaryDetailService *DictionaryDetailService) DeleteSysDictionaryDetail(sysDictionaryDetail system.SysDictItem) (err error) {
 	err = global.GVA_DB.Delete(&sysDictionaryDetail).Error
 	return err
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)
-//@function: UpdateSysDictionaryDetail
+//@function: UpdateSysDictItem
 //@description: 更新字典详情数据
-//@param: sysDictionaryDetail *model.SysDictionaryDetail
+//@param: sysDictionaryDetail *model.SysDictItem
 //@return: err error
 
-func (dictionaryDetailService *DictionaryDetailService) UpdateSysDictionaryDetail(sysDictionaryDetail *system.SysDictionaryDetail) (err error) {
+func (dictionaryDetailService *DictionaryDetailService) UpdateSysDictionaryDetail(sysDictionaryDetail *system.SysDictItem) (err error) {
 	err = global.GVA_DB.Save(sysDictionaryDetail).Error
 	return err
 }
@@ -45,9 +45,9 @@ func (dictionaryDetailService *DictionaryDetailService) UpdateSysDictionaryDetai
 //@function: GetSysDictionaryDetail
 //@description: 根据 id 获取字典详情单条数据
 //@param: id uint
-//@return: err error, sysDictionaryDetail model.SysDictionaryDetail
+//@return: err error, sysDictionaryDetail model.SysDictItem
 
-func (dictionaryDetailService *DictionaryDetailService) GetSysDictionaryDetail(id uint) (err error, sysDictionaryDetail system.SysDictionaryDetail) {
+func (dictionaryDetailService *DictionaryDetailService) GetSysDictionaryDetail(id uint) (err error, sysDictionaryDetail system.SysDictItem) {
 	err = global.GVA_DB.Where("id = ?", id).First(&sysDictionaryDetail).Error
 	return
 }
@@ -62,8 +62,8 @@ func (dictionaryDetailService *DictionaryDetailService) GetSysDictionaryDetailIn
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建 db
-	db := global.GVA_DB.Model(&system.SysDictionaryDetail{})
-	var sysDictionaryDetails []system.SysDictionaryDetail
+	db := global.GVA_DB.Model(&system.SysDictItem{})
+	var sysDictionaryDetails []system.SysDictItem
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.Label != "" {
 		db = db.Where("label LIKE ?", "%"+info.Label+"%")
@@ -74,8 +74,8 @@ func (dictionaryDetailService *DictionaryDetailService) GetSysDictionaryDetailIn
 	if info.Status != nil {
 		db = db.Where("status = ?", info.Status)
 	}
-	if info.SysDictionaryID != 0 {
-		db = db.Where("sys_dictionary_id = ?", info.SysDictionaryID)
+	if info.SysDictID != 0 {
+		db = db.Where("sys_dictionary_id = ?", info.SysDictID)
 	}
 	err = db.Count(&total).Error
 	if err != nil {

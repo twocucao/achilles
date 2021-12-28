@@ -13,16 +13,16 @@ import (
 
 type DictionaryDetailApi struct{}
 
-// @Tags SysDictionaryDetail
-// @Summary 创建 SysDictionaryDetail
+// @Tags SysDictItem
+// @Summary 创建 SysDictItem
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body system.SysDictionaryDetail true "SysDictionaryDetail 模型"
+// @Param data body system.SysDictItem true "SysDictItem 模型"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
 // @Router /sysDictionaryDetail/createSysDictionaryDetail [post]
-func (s *DictionaryDetailApi) CreateSysDictionaryDetail(c *gin.Context) {
-	var detail system.SysDictionaryDetail
+func (s *DictionaryDetailApi) CreateSysDictItem(c *gin.Context) {
+	var detail system.SysDictItem
 	_ = c.ShouldBindJSON(&detail)
 	if err := dictionaryDetailService.CreateSysDictionaryDetail(detail); err != nil {
 		global.GVA_LOG.Error("创建失败！", zap.Error(err))
@@ -32,16 +32,16 @@ func (s *DictionaryDetailApi) CreateSysDictionaryDetail(c *gin.Context) {
 	}
 }
 
-// @Tags SysDictionaryDetail
-// @Summary 删除 SysDictionaryDetail
+// @Tags SysDictItem
+// @Summary 删除 SysDictItem
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body system.SysDictionaryDetail true "SysDictionaryDetail 模型"
+// @Param data body system.SysDictItem true "SysDictItem 模型"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /sysDictionaryDetail/deleteSysDictionaryDetail [delete]
-func (s *DictionaryDetailApi) DeleteSysDictionaryDetail(c *gin.Context) {
-	var detail system.SysDictionaryDetail
+func (s *DictionaryDetailApi) DeleteSysDictItem(c *gin.Context) {
+	var detail system.SysDictItem
 	_ = c.ShouldBindJSON(&detail)
 	if err := dictionaryDetailService.DeleteSysDictionaryDetail(detail); err != nil {
 		global.GVA_LOG.Error("删除失败！", zap.Error(err))
@@ -51,16 +51,16 @@ func (s *DictionaryDetailApi) DeleteSysDictionaryDetail(c *gin.Context) {
 	}
 }
 
-// @Tags SysDictionaryDetail
-// @Summary 更新 SysDictionaryDetail
+// @Tags SysDictItem
+// @Summary 更新 SysDictItem
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body system.SysDictionaryDetail true "更新 SysDictionaryDetail"
+// @Param data body system.SysDictItem true "更新 SysDictItem"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /sysDictionaryDetail/updateSysDictionaryDetail [put]
-func (s *DictionaryDetailApi) UpdateSysDictionaryDetail(c *gin.Context) {
-	var detail system.SysDictionaryDetail
+func (s *DictionaryDetailApi) UpdateSysDictItem(c *gin.Context) {
+	var detail system.SysDictItem
 	_ = c.ShouldBindJSON(&detail)
 	if err := dictionaryDetailService.UpdateSysDictionaryDetail(&detail); err != nil {
 		global.GVA_LOG.Error("更新失败！", zap.Error(err))
@@ -70,16 +70,16 @@ func (s *DictionaryDetailApi) UpdateSysDictionaryDetail(c *gin.Context) {
 	}
 }
 
-// @Tags SysDictionaryDetail
-// @Summary 用 id 查询 SysDictionaryDetail
+// @Tags SysDictItem
+// @Summary 用 id 查询 SysDictItem
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query system.SysDictionaryDetail true "用 id 查询 SysDictionaryDetail"
+// @Param data query system.SysDictItem true "用 id 查询 SysDictItem"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /sysDictionaryDetail/findSysDictionaryDetail [get]
-func (s *DictionaryDetailApi) FindSysDictionaryDetail(c *gin.Context) {
-	var detail system.SysDictionaryDetail
+func (s *DictionaryDetailApi) FindSysDictItem(c *gin.Context) {
+	var detail system.SysDictItem
 	_ = c.ShouldBindQuery(&detail)
 	if err := utils.Verify(detail, utils.IdVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -93,15 +93,15 @@ func (s *DictionaryDetailApi) FindSysDictionaryDetail(c *gin.Context) {
 	}
 }
 
-// @Tags SysDictionaryDetail
-// @Summary 分页获取 SysDictionaryDetail 列表
+// @Tags SysDictItem
+// @Summary 分页获取 SysDictItem 列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
 // @Param data query request.SysDictionaryDetailSearch true "页码，每页大小，搜索条件"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /sysDictionaryDetail/getSysDictionaryDetailList [get]
-func (s *DictionaryDetailApi) GetSysDictionaryDetailList(c *gin.Context) {
+func (s *DictionaryDetailApi) GetSysDictItem(c *gin.Context) {
 	var pageInfo request.SysDictionaryDetailSearch
 	_ = c.ShouldBindQuery(&pageInfo)
 	if err, list, total := dictionaryDetailService.GetSysDictionaryDetailInfoList(pageInfo); err != nil {

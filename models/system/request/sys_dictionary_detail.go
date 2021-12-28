@@ -6,6 +6,6 @@ import (
 )
 
 type SysDictionaryDetailSearch struct {
-	system.SysDictionaryDetail
+	system.SysDictItem
 	request.PageInfo
 }

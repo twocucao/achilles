@@ -11,80 +11,80 @@ import (
 )
 
 //@author: [piexlmax](https://github.com/piexlmax)
-//@function: DeleteSysDictionary
+//@function: DeleteSysDict
 //@description: 创建字典数据
-//@param: sysDictionary model.SysDictionary
+//@param: SysDict model.SysDict
 //@return: err error
 
 type DictionaryService struct{}
 
-func (dictionaryService *DictionaryService) CreateSysDictionary(sysDictionary system.SysDictionary) (err error) {
-	if (!errors.Is(global.GVA_DB.First(&system.SysDictionary{}, "type = ?", sysDictionary.Type).Error, gorm.ErrRecordNotFound)) {
+func (dictionaryService *DictionaryService) CreateSysDict(SysDict system.SysDict) (err error) {
+	if (!errors.Is(global.GVA_DB.First(&system.SysDict{}, "type = ?", SysDict.Type).Error, gorm.ErrRecordNotFound)) {
 		return errors.New("存在相同的 type，不允许创建")
 	}
-	err = global.GVA_DB.Create(&sysDictionary).Error
+	err = global.GVA_DB.Create(&SysDict).Error
 	return err
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)
-//@function: DeleteSysDictionary
+//@function: DeleteSysDict
 //@description: 删除字典数据
-//@param: sysDictionary model.SysDictionary
+//@param: SysDict model.SysDict
 //@return: err error
 
-func (dictionaryService *DictionaryService) DeleteSysDictionary(sysDictionary system.SysDictionary) (err error) {
-	err = global.GVA_DB.Delete(&sysDictionary).Delete(&sysDictionary.SysDictionaryDetails).Error
+func (dictionaryService *DictionaryService) DeleteSysDict(SysDict system.SysDict) (err error) {
+	err = global.GVA_DB.Delete(&SysDict).Delete(&SysDict.SysDictItems).Error
 	return err
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)
-//@function: UpdateSysDictionary
+//@function: UpdateSysDict
 //@description: 更新字典数据
-//@param: sysDictionary *model.SysDictionary
+//@param: SysDict *model.SysDict
 //@return: err error
 
-func (dictionaryService *DictionaryService) UpdateSysDictionary(sysDictionary *system.SysDictionary) (err error) {
-	var dict system.SysDictionary
-	sysDictionaryMap := map[string]interface{}{
-		"Name":   sysDictionary.Name,
-		"Type":   sysDictionary.Type,
-		"Status": sysDictionary.Status,
-		"Desc":   sysDictionary.Desc,
+func (dictionaryService *DictionaryService) UpdateSysDict(SysDict *system.SysDict) (err error) {
+	var dict system.SysDict
+	SysDictMap := map[string]interface{}{
+		"Name":   SysDict.Name,
+		"Type":   SysDict.Type,
+		"Status": SysDict.Status,
+		"Desc":   SysDict.Desc,
 	}
-	db := global.GVA_DB.Where("id = ?", sysDictionary.ID).First(&dict)
-	if dict.Type != sysDictionary.Type {
-		if !errors.Is(global.GVA_DB.First(&system.SysDictionary{}, "type = ?", sysDictionary.Type).Error, gorm.ErrRecordNotFound) {
+	db := global.GVA_DB.Where("id = ?", SysDict.ID).First(&dict)
+	if dict.Type != SysDict.Type {
+		if !errors.Is(global.GVA_DB.First(&system.SysDict{}, "type = ?", SysDict.Type).Error, gorm.ErrRecordNotFound) {
 			return errors.New("存在相同的 type，不允许创建")
 		}
 	}
-	err = db.Updates(sysDictionaryMap).Error
+	err = db.Updates(SysDictMap).Error
 	return err
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)
-//@function: GetSysDictionary
+//@function: GetSysDict
 //@description: 根据 id 或者 type 获取字典单条数据
 //@param: Type string, Id uint
-//@return: err error, sysDictionary model.SysDictionary
+//@return: err error, SysDict model.SysDict
 
-func (dictionaryService *DictionaryService) GetSysDictionary(Type string, Id uint) (err error, sysDictionary system.SysDictionary) {
-	err = global.GVA_DB.Where("type = ? OR id = ? and status = ?", Type, Id, true).Preload("SysDictionaryDetails", "status = ?", true).First(&sysDictionary).Error
+func (dictionaryService *DictionaryService) GetSysDict(Type string, Id uint) (err error, SysDict system.SysDict) {
+	err = global.GVA_DB.Where("type = ? OR id = ? and status = ?", Type, Id, true).Preload("SysDictDetails", "status = ?", true).First(&SysDict).Error
 	return
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)
 //@author: [SliverHorn](https://github.com/SliverHorn)
-//@function: GetSysDictionaryInfoList
+//@function: GetSysDictInfoList
 //@description: 分页获取字典列表
-//@param: info request.SysDictionarySearch
+//@param: info request.SysDictSearch
 //@return: err error, list interface{}, total int64
 
-func (dictionaryService *DictionaryService) GetSysDictionaryInfoList(info request.SysDictionarySearch) (err error, list interface{}, total int64) {
+func (dictionaryService *DictionaryService) GetSysDictInfoList(info request.SysDictSearch) (err error, list interface{}, total int64) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建 db
-	db := global.GVA_DB.Model(&system.SysDictionary{})
-	var sysDictionarys []system.SysDictionary
+	db := global.GVA_DB.Model(&system.SysDict{})
+	var SysDicts []system.SysDict
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.Name != "" {
 		db = db.Where("`name` LIKE ?", "%"+info.Name+"%")
@@ -102,6 +102,6 @@ func (dictionaryService *DictionaryService) GetSysDictionaryInfoList(info reques
 	if err != nil {
 		return
 	}
-	err = db.Limit(limit).Offset(offset).Find(&sysDictionarys).Error
-	return err, sysDictionarys, total
+	err = db.Limit(limit).Offset(offset).Find(&SysDicts).Error
+	return err, SysDicts, total
 }

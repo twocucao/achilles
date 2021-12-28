@@ -1,4 +1,4 @@
-// 自动生成模板 SysDictionaryDetail
+// 自动生成模板 SysDictItem
 package autocode
 
 import (

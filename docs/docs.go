@@ -2499,7 +2499,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "SysDictionaryDetail"
+                    "SysDictItem"
                 ],
                 "summary": "创建SysDictionaryDetail",
                 "parameters": [
@@ -2509,7 +2509,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/system.SysDictionaryDetail"
+                            "$ref": "#/definitions/system.SysDictItem"
                         }
                     }
                 ],
@@ -2537,7 +2537,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "SysDictionaryDetail"
+                    "SysDictItem"
                 ],
                 "summary": "删除SysDictionaryDetail",
                 "parameters": [
@@ -2547,7 +2547,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/system.SysDictionaryDetail"
+                            "$ref": "#/definitions/system.SysDictItem"
                         }
                     }
                 ],
@@ -2575,7 +2575,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "SysDictionaryDetail"
+                    "SysDictItem"
                 ],
                 "summary": "用id查询SysDictionaryDetail",
                 "parameters": [
@@ -2652,7 +2652,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "SysDictionaryDetail"
+                    "SysDictItem"
                 ],
                 "summary": "分页获取SysDictionaryDetail列表",
                 "parameters": [
@@ -2741,7 +2741,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "SysDictionaryDetail"
+                    "SysDictItem"
                 ],
                 "summary": "更新SysDictionaryDetail",
                 "parameters": [
@@ -2751,7 +2751,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/system.SysDictionaryDetail"
+                            "$ref": "#/definitions/system.SysDictItem"
                         }
                     }
                 ],
@@ -4643,7 +4643,7 @@ var doc = `{
                 "sysDictionaryDetails": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/system.SysDictionaryDetail"
+                        "$ref": "#/definitions/system.SysDictItem"
                     }
                 },
                 "type": {
@@ -4656,7 +4656,7 @@ var doc = `{
                 }
             }
         },
-        "system.SysDictionaryDetail": {
+        "system.SysDictItem": {
             "type": "object",
             "properties": {
                 "createdAt": {

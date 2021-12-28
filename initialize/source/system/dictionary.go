@@ -19,7 +19,7 @@ func (d *dictionary) TableName() string {
 func (d *dictionary) Initialize() error {
 	status := new(bool)
 	*status = true
-	entities := []system.SysDictionary{
+	entities := []system.SysDict{
 		{Name: "性别", Type: "gender", Status: status, Desc: "性别字典"},
 		{Name: "数据库 int 类型", Type: "int", Status: status, Desc: "int 类型对应的数据库类型"},
 		{Name: "数据库时间日期类型", Type: "time.Time", Status: status, Desc: "数据库时间日期类型"},
@@ -34,7 +34,7 @@ func (d *dictionary) Initialize() error {
 }
 
 func (d *dictionary) CheckDataExist() bool {
-	if errors.Is(global.GVA_DB.Where("type = ?", "bool").First(&system.SysDictionary{}).Error, gorm.ErrRecordNotFound) { // 判断是否存在数据
+	if errors.Is(global.GVA_DB.Where("type = ?", "bool").First(&system.SysDict{}).Error, gorm.ErrRecordNotFound) { // 判断是否存在数据
 		return false
 	}
 	return true

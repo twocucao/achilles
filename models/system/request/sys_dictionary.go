@@ -5,7 +5,7 @@ import (
 	"achilles/models/system"
 )
 
-type SysDictionarySearch struct {
-	system.SysDictionary
+type SysDictSearch struct {
+	system.SysDict
 	request.PageInfo
 }
