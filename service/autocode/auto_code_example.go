@@ -2,8 +2,8 @@ package autocode
 
 import (
 	"achilles/global"
-	"achilles/model/autocode"
-	"achilles/model/autocode/request"
+	"achilles/models/autocode"
+	"achilles/models/autocode/request"
 )
 
 type AutoCodeExampleService struct{}

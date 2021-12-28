@@ -2,7 +2,7 @@ package system
 
 import (
 	"achilles/global"
-	"achilles/model/system"
+	"achilles/models/system"
 
 	"github.com/pkg/errors"
 	uuid "github.com/satori/go.uuid"

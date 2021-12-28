@@ -5,9 +5,9 @@ import (
 	"fmt"
 
 	"achilles/global"
-	"achilles/model/example"
-	"achilles/model/system"
-	"achilles/model/system/request"
+	"achilles/models/example"
+	"achilles/models/system"
+	"achilles/models/system/request"
 
 	adapter "github.com/casbin/gorm-adapter/v3"
 )

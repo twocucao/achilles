@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"achilles/global"
-	"achilles/model/common/request"
-	"achilles/model/example"
+	"achilles/models/common/request"
+	"achilles/models/example"
 	"achilles/utils/upload"
 )
 

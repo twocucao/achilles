@@ -3,7 +3,7 @@ package system
 import (
 	"achilles/config"
 	"achilles/global"
-	"achilles/model/system"
+	"achilles/models/system"
 	"achilles/utils"
 
 	"go.uber.org/zap"

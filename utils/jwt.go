@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"achilles/global"
-	"achilles/model/system/request"
+	"achilles/models/system/request"
 
 	"github.com/dgrijalva/jwt-go"
 )

@@ -2,9 +2,9 @@ package example
 
 import (
 	"achilles/global"
-	"achilles/model/common/request"
-	"achilles/model/example"
-	"achilles/model/system"
+	"achilles/models/common/request"
+	"achilles/models/example"
+	"achilles/models/system"
 	systemService "achilles/service/system"
 )
 

@@ -8,8 +8,8 @@ import (
 
 	"achilles/config"
 	"achilles/global"
-	model "achilles/model/system"
-	"achilles/model/system/request"
+	model "achilles/models/system"
+	"achilles/models/system/request"
 	"achilles/utils"
 
 	uuid "github.com/satori/go.uuid"

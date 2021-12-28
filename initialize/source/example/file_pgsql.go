@@ -2,7 +2,7 @@ package example
 
 import (
 	"achilles/global"
-	"achilles/model/example"
+	"achilles/models/example"
 
 	"github.com/pkg/errors"
 	"gorm.io/gorm"

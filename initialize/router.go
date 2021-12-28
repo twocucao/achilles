@@ -2,6 +2,7 @@ package initialize
 
 import (
 	"achilles/api"
+	"achilles/api/admin"
 	_ "achilles/docs"
 	"achilles/global"
 	"achilles/middleware"
@@ -15,44 +16,26 @@ import (
 // 初始化总路由
 
 func Routers() *gin.Engine {
-	Router := gin.Default()
-	Router.StaticFS(global.GVA_CONFIG.Local.Path, http.Dir(global.GVA_CONFIG.Local.Path)) // 为用户头像和文件提供静态地址
+	r := gin.Default()
+	r.StaticFS(global.GVA_CONFIG.Local.Path, http.Dir(global.GVA_CONFIG.Local.Path)) // 为用户头像和文件提供静态地址
 	global.GVA_LOG.Info("use middleware logger")
-	Router.Use(middleware.Cors()) // cors allow all
-	// Router.Use(middleware.CorsByRules()) // cors allow by rules
+	r.Use(middleware.Cors()) // cors allow all
+	// r.Use(middleware.CorsByRules()) // cors allow by rules
 	global.GVA_LOG.Info("use middleware cors")
-	Router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	global.GVA_LOG.Info("register swagger handler")
-	systemRouter := api.RouterGroupApp.System
+	admin.InitRouter(r.Group("/api/admin"))
 	exampleRouter := api.RouterGroupApp.Example
 	autocodeRouter := api.RouterGroupApp.Autocode
-	PublicGroup := Router.Group("")
+	PublicGroup := r.Group("")
 	{
 		// 健康监测
 		PublicGroup.GET("/health", func(c *gin.Context) {
 			c.JSON(200, "ok")
 		})
 	}
-	{
-		systemRouter.InitBaseRouter(PublicGroup) // 注册基础功能路由 不做鉴权
-		systemRouter.InitInitRouter(PublicGroup) // 自动初始化相关
-	}
-	privateGroup := Router.Group("/api/admin")
+	privateGroup := r.Group("")
 	privateGroup.Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
-	{
-		systemRouter.InitApiRouter(privateGroup)                 // 注册功能 api 路由
-		systemRouter.InitJwtRouter(privateGroup)                 // jwt 相关路由
-		systemRouter.InitUserRouter(privateGroup)                // 注册用户路由
-		systemRouter.InitMenuRouter(privateGroup)                // 注册 menu 路由
-		systemRouter.InitSystemRouter(privateGroup)              // system 相关路由
-		systemRouter.InitCasbinRouter(privateGroup)              // 权限相关路由
-		systemRouter.InitAutoCodeRouter(privateGroup)            // 创建自动化代码
-		systemRouter.InitAuthorityRouter(privateGroup)           // 注册角色路由
-		systemRouter.InitSysDictionaryRouter(privateGroup)       // 字典管理
-		systemRouter.InitAutoCodeHistoryRouter(privateGroup)     // 自动化代码历史
-		systemRouter.InitSysOperationRecordRouter(privateGroup)  // 操作记录
-		systemRouter.InitSysDictionaryDetailRouter(privateGroup) // 字典详情管理
-	}
 	{
 		exampleRouter.InitExcelRouter(privateGroup)                 // 表格导入导出
 		exampleRouter.InitCustomerRouter(privateGroup)              // 客户路由
@@ -66,5 +49,5 @@ func Routers() *gin.Engine {
 	InstallPlugin(PublicGroup, privateGroup) // 安装插件
 
 	global.GVA_LOG.Info("router register success")
-	return Router
+	return r
 }

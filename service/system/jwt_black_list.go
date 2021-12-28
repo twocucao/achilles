@@ -7,7 +7,7 @@ import (
 	"go.uber.org/zap"
 
 	"achilles/global"
-	"achilles/model/system"
+	"achilles/models/system"
 )
 
 type JwtService struct{}

@@ -7,8 +7,8 @@ import (
 	"achilles/utils"
 
 	"achilles/global"
-	"achilles/model/common/response"
-	"achilles/model/system"
+	"achilles/models/common/response"
+	"achilles/models/system"
 	"achilles/service"
 
 	"github.com/gin-gonic/gin"

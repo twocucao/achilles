@@ -4,9 +4,9 @@ import (
 	"os"
 
 	"achilles/global"
-	"achilles/model/autocode"
-	"achilles/model/example"
-	"achilles/model/system"
+	"achilles/models/autocode"
+	"achilles/models/example"
+	"achilles/models/system"
 
 	"go.uber.org/zap"
 	"gorm.io/gorm"

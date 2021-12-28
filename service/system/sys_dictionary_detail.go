@@ -2,8 +2,8 @@ package system
 
 import (
 	"achilles/global"
-	"achilles/model/system"
-	"achilles/model/system/request"
+	"achilles/models/system"
+	"achilles/models/system/request"
 )
 
 //@author: [piexlmax](https://github.com/piexlmax)

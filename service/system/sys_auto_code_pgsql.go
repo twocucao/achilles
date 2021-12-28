@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"achilles/global"
-	"achilles/model/system/response"
+	"achilles/models/system/response"
 
 	"github.com/pkg/errors"
 	"gorm.io/driver/postgres"

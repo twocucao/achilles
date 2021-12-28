@@ -4,8 +4,8 @@ import (
 	"errors"
 
 	"achilles/global"
-	"achilles/model/system"
-	"achilles/model/system/request"
+	"achilles/models/system"
+	"achilles/models/system/request"
 
 	"gorm.io/gorm"
 )

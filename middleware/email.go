@@ -9,7 +9,7 @@ import (
 	utils2 "achilles/utils"
 
 	"achilles/global"
-	"achilles/model/system"
+	"achilles/models/system"
 	"achilles/service"
 
 	"github.com/gin-gonic/gin"

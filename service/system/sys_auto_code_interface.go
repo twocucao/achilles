@@ -2,7 +2,7 @@ package system
 
 import (
 	"achilles/global"
-	"achilles/model/system/response"
+	"achilles/models/system/response"
 )
 
 type Database interface {

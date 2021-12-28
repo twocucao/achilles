@@ -5,9 +5,9 @@ import (
 	"strconv"
 
 	"achilles/global"
-	"achilles/model/common/request"
-	"achilles/model/system"
-	"achilles/model/system/response"
+	"achilles/models/common/request"
+	"achilles/models/system"
+	"achilles/models/system/response"
 
 	"gorm.io/gorm"
 )

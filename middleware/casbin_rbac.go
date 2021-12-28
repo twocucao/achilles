@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"achilles/global"
-	"achilles/model/common/response"
+	"achilles/models/common/response"
 	"achilles/service"
 	"achilles/utils"
 

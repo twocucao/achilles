@@ -4,7 +4,7 @@ import (
 	"reflect"
 
 	"achilles/global"
-	"achilles/model/system"
+	"achilles/models/system"
 
 	"github.com/pkg/errors"
 	"gorm.io/gorm"

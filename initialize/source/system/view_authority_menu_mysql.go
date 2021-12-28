@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"achilles/global"
-	"achilles/model/system"
+	"achilles/models/system"
 
 	"github.com/pkg/errors"
 )

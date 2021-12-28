@@ -2,7 +2,7 @@ package utils
 
 import (
 	"achilles/global"
-	systemReq "achilles/model/system/request"
+	systemReq "achilles/models/system/request"
 
 	"github.com/gin-gonic/gin"
 	uuid "github.com/satori/go.uuid"

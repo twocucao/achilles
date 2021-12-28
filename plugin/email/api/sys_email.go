@@ -2,7 +2,7 @@ package api
 
 import (
 	"achilles/global"
-	"achilles/model/common/response"
+	"achilles/models/common/response"
 	email_response "achilles/plugin/email/model/response"
 	"achilles/plugin/email/service"
 

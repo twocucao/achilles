@@ -12,7 +12,7 @@ import (
 	"text/template"
 
 	"achilles/global"
-	"achilles/model/system"
+	"achilles/models/system"
 	"achilles/utils"
 
 	"gorm.io/gorm"

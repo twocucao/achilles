@@ -7,11 +7,11 @@ import (
 	"strings"
 	"time"
 
-	"achilles/model/system/response"
+	"achilles/models/system/response"
 
 	"achilles/global"
-	"achilles/model/common/request"
-	"achilles/model/system"
+	"achilles/models/common/request"
+	"achilles/models/system"
 	"achilles/utils"
 
 	"go.uber.org/zap"

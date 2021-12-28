@@ -9,7 +9,7 @@ import (
 	"go.uber.org/zap"
 
 	"achilles/global"
-	"achilles/model/common/response"
+	"achilles/models/common/response"
 
 	"github.com/gin-gonic/gin"
 )

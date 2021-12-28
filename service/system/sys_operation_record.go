@@ -2,9 +2,9 @@ package system
 
 import (
 	"achilles/global"
-	"achilles/model/common/request"
-	"achilles/model/system"
-	systemReq "achilles/model/system/request"
+	"achilles/models/common/request"
+	"achilles/models/system"
+	systemReq "achilles/models/system/request"
 )
 
 //@author: [granty1](https://github.com/granty1)

@@ -5,8 +5,8 @@ import (
 	"sync"
 
 	"achilles/global"
-	"achilles/model/system"
-	"achilles/model/system/request"
+	"achilles/models/system"
+	"achilles/models/system/request"
 
 	"github.com/casbin/casbin/v2"
 	gormadapter "github.com/casbin/gorm-adapter/v3"

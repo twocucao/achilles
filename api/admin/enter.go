@@ -1,15 +1,15 @@
 package admin
 
 import (
-	"achilles/api/autocode/autocodeview"
-	"achilles/api/example/exampleview"
-	"achilles/api/system/views"
+	"achilles/api/autocode/autocodeView"
+	"achilles/api/example/exampleView"
+	"achilles/api/system"
 )
 
 type ApiGroup struct {
-	SystemApiGroup   views.ApiGroup
-	ExampleApiGroup  exampleview.ApiGroup
-	AutoCodeApiGroup autocodeview.ApiGroup
+	SystemApiGroup   system.ApiGroup
+	ExampleApiGroup  exampleView.ApiGroup
+	AutoCodeApiGroup autocodeView.ApiGroup
 }
 
 var ApiGroupApp = new(ApiGroup)

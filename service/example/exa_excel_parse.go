@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	"achilles/global"
-	"achilles/model/system"
+	"achilles/models/system"
 
 	"github.com/xuri/excelize/v2"
 )
