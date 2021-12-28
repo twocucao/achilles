@@ -33,12 +33,12 @@ func RegisterTables(db *gorm.DB) {
 		system.SysApi{},
 		system.SysUser{},
 		system.SysBaseMenu{},
-		system.JwtBlacklist{},
+		system.JWTDenyList{},
 		system.SysAuthority{},
 		system.SysDict{},
-		system.SysOperationRecord{},
-		system.SysAutoCodeHistory{},
 		system.SysDictItem{},
+		system.SysAuditLog{},
+		system.SysAutoCodeHistory{},
 		system.SysBaseMenuParameter{},
 
 		// 示例模块表

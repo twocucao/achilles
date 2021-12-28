@@ -6,6 +6,6 @@ import (
 )
 
 type SysOperationRecordSearch struct {
-	system.SysOperationRecord
+	system.SysAuditLog
 	request.PageInfo
 }

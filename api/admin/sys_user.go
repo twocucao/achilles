@@ -1,4 +1,4 @@
-package system
+package admin
 
 import (
 	"strconv"
@@ -82,7 +82,7 @@ func (b *BaseApi) tokenNext(c *gin.Context, user system.SysUser) {
 		global.GVA_LOG.Error("设置登录状态失败！", zap.Error(err))
 		response.FailWithMessage("设置登录状态失败", c)
 	} else {
-		var blackJWT system.JwtBlacklist
+		var blackJWT system.JWTDenyList
 		blackJWT.Jwt = jwtStr
 		if err := jwtService.JsonInBlacklist(blackJWT); err != nil {
 			response.FailWithMessage("jwt 作废失败", c)

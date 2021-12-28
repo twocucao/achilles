@@ -1,4 +1,4 @@
-package exampleView
+package example
 
 import (
 	"achilles/global"
@@ -6,10 +6,13 @@ import (
 	"achilles/models/common/response"
 	"achilles/models/example"
 	exampleRes "achilles/models/example/response"
+	"achilles/service"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
+
+var fileUploadAndDownloadService = service.ServiceGroupApp.ExampleServiceGroup.FileUploadAndDownloadService
 
 type FileUploadAndDownloadApi struct{}
 

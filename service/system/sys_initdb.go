@@ -37,10 +37,10 @@ func (initDBService *InitDBService) initTables() error {
 		system.SysUser{},
 		system.SysBaseMenu{},
 		system.SysAuthority{},
-		system.JwtBlacklist{},
+		system.JWTDenyList{},
 		system.SysDict{},
 		system.SysAutoCodeHistory{},
-		system.SysOperationRecord{},
+		system.SysAuditLog{},
 		system.SysDictItem{},
 		system.SysBaseMenuParameter{},
 

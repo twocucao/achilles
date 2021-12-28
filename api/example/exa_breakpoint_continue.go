@@ -1,4 +1,4 @@
-package exampleView
+package example
 
 import (
 	"fmt"

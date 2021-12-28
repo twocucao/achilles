@@ -1,12 +1,12 @@
 package admin
 
 import (
-	"achilles/api/system"
 	"achilles/middleware"
 	"github.com/gin-gonic/gin"
 )
 
 func InitRouter(group *gin.RouterGroup) {
+	group.Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
 	initBaseRouter(group)
 	initApiRouter(group)
 	initAuthorityRouter(group)
@@ -24,20 +24,20 @@ func InitRouter(group *gin.RouterGroup) {
 
 func initOperationRecordRouter(group *gin.RouterGroup) {
 	r := group.Group("/sysAuditLog")
-	api := ApiGroupApp.SystemApiGroup.OperationRecordApi
+	api := new(SysAuditLog)
 	{
-		r.POST("/create", api.CreateSysOperationRecord)           // 新建 SysOperationRecord
-		r.POST("/delete", api.DeleteSysOperationRecord)           // 删除 SysOperationRecord
-		r.POST("/bulk_delete", api.DeleteSysOperationRecordByIds) // 批量删除 SysOperationRecord
-		r.POST("/detail", api.FindSysOperationRecord)             // 根据 ID 获取 SysOperationRecord
-		r.POST("/list", api.GetSysOperationRecordList)            // 获取 SysOperationRecord 列表
+		r.POST("/create", api.CreateSysOperationRecord)           // 新建 SysAuditLog
+		r.POST("/delete", api.DeleteSysOperationRecord)           // 删除 SysAuditLog
+		r.POST("/bulk_delete", api.DeleteSysOperationRecordByIds) // 批量删除 SysAuditLog
+		r.POST("/detail", api.FindSysOperationRecord)             // 根据 ID 获取 SysAuditLog
+		r.POST("/list", api.GetSysOperationRecordList)            // 获取 SysAuditLog 列表
 	}
 }
 
 func initUserRouter(group *gin.RouterGroup) {
-	r := group.Group("/user").Use(middleware.OperationRecord())
+	r := group.Group("/user").Use(middleware.SysAuditLog())
 	rNoAudit := group.Group("/user")
-	baseApi := ApiGroupApp.SystemApiGroup.BaseApi
+	baseApi := new(BaseApi)
 	{
 		r.POST("/register", baseApi.Register)                     // 用户注册账号
 		r.POST("/changePassword", baseApi.ChangePassword)         // 用户修改密码
@@ -52,8 +52,8 @@ func initUserRouter(group *gin.RouterGroup) {
 }
 
 func initSystemRouter(group *gin.RouterGroup) {
-	r := group.Group("/system").Use(middleware.OperationRecord())
-	api := ApiGroupApp.SystemApiGroup.SystemApi
+	r := group.Group("/system").Use(middleware.SysAuditLog())
+	api := new(SystemApi)
 	{
 		r.GET("/getConfig", api.GetSystemConfig)    // 获取配置文件内容
 		r.POST("/setConfig", api.SetSystemConfig)   // 设置配置文件内容
@@ -62,10 +62,10 @@ func initSystemRouter(group *gin.RouterGroup) {
 	}
 }
 
-func initMenuRouter(group *gin.RouterGroup) system.AuthorityMenuApi {
-	r := group.Group("/menu").Use(middleware.OperationRecord())
+func initMenuRouter(group *gin.RouterGroup) {
+	r := group.Group("/menu").Use(middleware.SysAuditLog())
 	rNoAudit := group.Group("/menu")
-	api := ApiGroupApp.SystemApiGroup.AuthorityMenuApi
+	api := new(AuthorityMenuApi)
 	{
 		r.POST("/addBaseMenu", api.AddBaseMenu)                  // 新增菜单
 		r.POST("/addMenuAuthority", api.AddMenuAuthority)        // 增加 menu 和角色关联关系
@@ -77,12 +77,11 @@ func initMenuRouter(group *gin.RouterGroup) system.AuthorityMenuApi {
 		rNoAudit.POST("/getMenuAuthority", api.GetMenuAuthority) // 获取指定角色 menu
 		rNoAudit.POST("/getBaseMenuById", api.GetBaseMenuById)   // 根据 id 获取菜单
 	}
-	return api
 }
 
 func initBaseRouter(group *gin.RouterGroup) {
 	r := group.Group("")
-	api := ApiGroupApp.SystemApiGroup.BaseApi
+	api := new(BaseApi)
 	{
 		r.POST("/login", api.Login)
 		r.POST("/captcha", api.Captcha)
@@ -90,9 +89,9 @@ func initBaseRouter(group *gin.RouterGroup) {
 }
 
 func initCasbinRouter(group *gin.RouterGroup) {
-	r := group.Group("/casbin").Use(middleware.OperationRecord())
+	r := group.Group("/casbin").Use(middleware.SysAuditLog())
 	rNoAudit := group.Group("/casbin")
-	api := ApiGroupApp.SystemApiGroup.CasbinApi
+	api := new(CasbinApi)
 	{
 		r.POST("/update", api.UpdateCasbin)
 		rNoAudit.POST("/getPolicyPathByAuthorityId", api.GetPolicyPathByAuthorityId)
@@ -101,9 +100,9 @@ func initCasbinRouter(group *gin.RouterGroup) {
 
 func initDictRouter(group *gin.RouterGroup) {
 	{
-		r := group.Group("/sysDict").Use(middleware.OperationRecord())
+		r := group.Group("/sysDict").Use(middleware.SysAuditLog())
 		rNoAudit := group.Group("/sysDict")
-		sysDictionaryApi := ApiGroupApp.SystemApiGroup.DictionaryApi
+		sysDictionaryApi := new(DictionaryApi)
 		{
 			r.POST("/create", sysDictionaryApi.CreateSysDict)      // 新建 SysDict
 			r.POST("/delete", sysDictionaryApi.DeleteSysDict)      // 删除 SysDict
@@ -111,11 +110,11 @@ func initDictRouter(group *gin.RouterGroup) {
 			rNoAudit.GET("/detail", sysDictionaryApi.FindSysDict)  // 根据 ID 获取 SysDict
 			rNoAudit.GET("/list", sysDictionaryApi.GetSysDictList) // 获取 SysDict 列表
 		}
-		api := ApiGroupApp.SystemApiGroup.DictionaryDetailApi
+		api := new(DictionaryDetailApi)
 		{
 			r.POST("/item/create", api.CreateSysDictItem)     // 新建 SysDictItem
-			r.PUT("/item/update", api.UpdateSysDictItem)      // 更新 SysDictItem
-			r.DELETE("/item/delete", api.DeleteSysDictItem)   // 删除 SysDictItem
+			r.POST("/item/update", api.UpdateSysDictItem)     // 更新 SysDictItem
+			r.POST("/item/delete", api.DeleteSysDictItem)     // 删除 SysDictItem
 			rNoAudit.GET("/item/detail", api.FindSysDictItem) // 根据 ID 获取 SysDictItem
 			rNoAudit.GET("/item/list", api.GetSysDictItem)    // 获取 SysDictItem 列表
 		}
@@ -125,8 +124,8 @@ func initDictRouter(group *gin.RouterGroup) {
 
 func initAutoCoder(group *gin.RouterGroup) {
 	r := group.Group("/autoCode")
-	api := ApiGroupApp.SystemApiGroup.AutoCodeApi
-	apiHistory := ApiGroupApp.SystemApiGroup.AutoCodeHistoryApi
+	api := new(AutoCodeApi)
+	apiHistory := new(AutoCodeHistoryApi)
 	{
 		r.GET("/getDB", api.GetDB)                   // 获取数据库
 		r.GET("/getTables", api.GetTables)           // 获取对应数据库的表
@@ -141,9 +140,9 @@ func initAutoCoder(group *gin.RouterGroup) {
 }
 
 func initAuthorityRouter(group *gin.RouterGroup) {
-	r := group.Group("/authority").Use(middleware.OperationRecord())
+	r := group.Group("/authority").Use(middleware.SysAuditLog())
 	rNotAudit := group.Group("/authority")
-	api := ApiGroupApp.SystemApiGroup.AuthorityApi
+	api := new(AuthorityApi)
 	{
 		r.POST("/create", api.CreateAuthority)        // 创建角色
 		r.POST("/delete", api.DeleteAuthority)        // 删除角色
@@ -155,9 +154,9 @@ func initAuthorityRouter(group *gin.RouterGroup) {
 }
 
 func initApiRouter(group *gin.RouterGroup) {
-	r := group.Group("/api").Use(middleware.OperationRecord())
+	r := group.Group("/api").Use(middleware.SysAuditLog())
 	rNotAudit := group.Group("/api")
-	api := ApiGroupApp.SystemApiGroup.SystemApiApi
+	api := new(SystemApiApi)
 	{
 		r.POST("/create", api.CreateApi)            // 创建 Api
 		r.POST("/delete", api.DeleteApi)            // 删除 Api
@@ -173,7 +172,7 @@ func initApiRouter(group *gin.RouterGroup) {
 
 func initDBRouter(group *gin.RouterGroup) {
 	r := group.Group("/init")
-	api := ApiGroupApp.SystemApiGroup.DBApi
+	api := new(DBApi)
 	{
 		r.POST("/initdb", api.InitDB)   // 创建 Api
 		r.POST("/checkdb", api.CheckDB) // 创建 Api
@@ -182,7 +181,7 @@ func initDBRouter(group *gin.RouterGroup) {
 
 func initJwtRouter(group *gin.RouterGroup) {
 	r := group.Group("/jwt")
-	api := ApiGroupApp.SystemApiGroup.JwtApi
+	api := new(JwtApi)
 	{
 		r.POST("/deny", api.DenyJWT)
 		r.POST("/expire", api.ExpireJWT)

@@ -15,10 +15,10 @@ type JwtService struct{}
 //@author: [piexlmax](https://github.com/piexlmax)
 //@function: JsonInBlacklist
 //@description: 拉黑 jwt
-//@param: jwtList model.JwtBlacklist
+//@param: jwtList model.JWTDenyList
 //@return: err error
 
-func (jwtService *JwtService) JsonInBlacklist(jwtList system.JwtBlacklist) (err error) {
+func (jwtService *JwtService) JsonInBlacklist(jwtList system.JWTDenyList) (err error) {
 	err = global.GVA_DB.Create(&jwtList).Error
 	if err != nil {
 		return
@@ -36,7 +36,7 @@ func (jwtService *JwtService) JsonInBlacklist(jwtList system.JwtBlacklist) (err 
 func (jwtService *JwtService) IsBlacklist(jwt string) bool {
 	_, ok := global.BlackCache.Get(jwt)
 	return ok
-	// err := global.GVA_DB.Where("jwt = ?", jwt).First(&system.JwtBlacklist{}).Error
+	// err := global.GVA_DB.Where("jwt = ?", jwt).First(&system.JWTDenyList{}).Error
 	// isNotFound := errors.Is(err, gorm.ErrRecordNotFound)
 	// return !isNotFound
 }
@@ -67,7 +67,7 @@ func (jwtService *JwtService) SetRedisJWT(jwt string, userName string) (err erro
 
 func LoadAll() {
 	var data []string
-	err := global.GVA_DB.Model(&system.JwtBlacklist{}).Select("jwt").Find(&data).Error
+	err := global.GVA_DB.Model(&system.JWTDenyList{}).Select("jwt").Find(&data).Error
 	if err != nil {
 		global.GVA_LOG.Error("加载数据库 jwt 黑名单失败！", zap.Error(err))
 		return

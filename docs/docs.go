@@ -2779,7 +2779,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "SysOperationRecord"
+                    "SysAuditLog"
                 ],
                 "summary": "创建SysOperationRecord",
                 "parameters": [
@@ -2789,7 +2789,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/system.SysOperationRecord"
+                            "$ref": "#/definitions/system.SysAuditLog"
                         }
                     }
                 ],
@@ -2817,7 +2817,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "SysOperationRecord"
+                    "SysAuditLog"
                 ],
                 "summary": "删除SysOperationRecord",
                 "parameters": [
@@ -2827,7 +2827,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/system.SysOperationRecord"
+                            "$ref": "#/definitions/system.SysAuditLog"
                         }
                     }
                 ],
@@ -2855,7 +2855,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "SysOperationRecord"
+                    "SysAuditLog"
                 ],
                 "summary": "批量删除SysOperationRecord",
                 "parameters": [
@@ -2893,7 +2893,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "SysOperationRecord"
+                    "SysAuditLog"
                 ],
                 "summary": "用id查询SysOperationRecord",
                 "parameters": [
@@ -3000,7 +3000,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "SysOperationRecord"
+                    "SysAuditLog"
                 ],
                 "summary": "分页获取SysOperationRecord列表",
                 "parameters": [
@@ -4693,7 +4693,7 @@ var doc = `{
                 }
             }
         },
-        "system.SysOperationRecord": {
+        "system.SysAuditLog": {
             "type": "object",
             "properties": {
                 "agent": {

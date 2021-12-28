@@ -10,12 +10,12 @@ import (
 //@author: [granty1](https://github.com/granty1)
 //@function: CreateSysOperationRecord
 //@description: 创建记录
-//@param: sysOperationRecord model.SysOperationRecord
+//@param: sysOperationRecord model.SysAuditLog
 //@return: err error
 
 type OperationRecordService struct{}
 
-func (operationRecordService *OperationRecordService) CreateSysOperationRecord(sysOperationRecord system.SysOperationRecord) (err error) {
+func (operationRecordService *OperationRecordService) CreateSysOperationRecord(sysOperationRecord system.SysAuditLog) (err error) {
 	err = global.GVA_DB.Create(&sysOperationRecord).Error
 	return err
 }
@@ -28,17 +28,17 @@ func (operationRecordService *OperationRecordService) CreateSysOperationRecord(s
 //@return: err error
 
 func (operationRecordService *OperationRecordService) DeleteSysOperationRecordByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]system.SysOperationRecord{}, "id in (?)", ids.Ids).Error
+	err = global.GVA_DB.Delete(&[]system.SysAuditLog{}, "id in (?)", ids.Ids).Error
 	return err
 }
 
 //@author: [granty1](https://github.com/granty1)
 //@function: DeleteSysOperationRecord
 //@description: 删除操作记录
-//@param: sysOperationRecord model.SysOperationRecord
+//@param: sysOperationRecord model.SysAuditLog
 //@return: err error
 
-func (operationRecordService *OperationRecordService) DeleteSysOperationRecord(sysOperationRecord system.SysOperationRecord) (err error) {
+func (operationRecordService *OperationRecordService) DeleteSysOperationRecord(sysOperationRecord system.SysAuditLog) (err error) {
 	err = global.GVA_DB.Delete(&sysOperationRecord).Error
 	return err
 }
@@ -47,9 +47,9 @@ func (operationRecordService *OperationRecordService) DeleteSysOperationRecord(s
 //@function: DeleteSysOperationRecord
 //@description: 根据 id 获取单条操作记录
 //@param: id uint
-//@return: err error, sysOperationRecord model.SysOperationRecord
+//@return: err error, sysOperationRecord model.SysAuditLog
 
-func (operationRecordService *OperationRecordService) GetSysOperationRecord(id uint) (err error, sysOperationRecord system.SysOperationRecord) {
+func (operationRecordService *OperationRecordService) GetSysOperationRecord(id uint) (err error, sysOperationRecord system.SysAuditLog) {
 	err = global.GVA_DB.Where("id = ?", id).First(&sysOperationRecord).Error
 	return
 }
@@ -65,8 +65,8 @@ func (operationRecordService *OperationRecordService) GetSysOperationRecordInfoL
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建 db
-	db := global.GVA_DB.Model(&system.SysOperationRecord{})
-	var sysOperationRecords []system.SysOperationRecord
+	db := global.GVA_DB.Model(&system.SysAuditLog{})
+	var sysOperationRecords []system.SysAuditLog
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.Method != "" {
 		db = db.Where("method = ?", info.Method)

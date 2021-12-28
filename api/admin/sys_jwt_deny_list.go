@@ -1,4 +1,4 @@
-package system
+package admin
 
 import (
 	"achilles/global"
@@ -20,7 +20,7 @@ type JwtApi struct{}
 // @Router /jwt/jsonInBlacklist [post]
 func (j *JwtApi) ExpireJWT(c *gin.Context) {
 	token := c.Request.Header.Get("x-token")
-	jwt := system.JwtBlacklist{Jwt: token}
+	jwt := system.JWTDenyList{Jwt: token}
 	if err := jwtService.JsonInBlacklist(jwt); err != nil {
 		global.GVA_LOG.Error("jwt 作废失败！", zap.Error(err))
 		response.FailWithMessage("jwt 作废失败", c)
@@ -38,7 +38,7 @@ func (j *JwtApi) ExpireJWT(c *gin.Context) {
 // @Router /jwt/jsonInBlacklist [post]
 func (j *JwtApi) DenyJWT(c *gin.Context) {
 	token := c.Request.Header.Get("x-token")
-	jwt := system.JwtBlacklist{Jwt: token}
+	jwt := system.JWTDenyList{Jwt: token}
 	if err := jwtService.JsonInBlacklist(jwt); err != nil {
 		global.GVA_LOG.Error("jwt 作废失败！", zap.Error(err))
 		response.FailWithMessage("jwt 作废失败", c)

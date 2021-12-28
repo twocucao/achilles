@@ -33,7 +33,7 @@ func ErrorToEmail() gin.HandlerFunc {
 			username = user.Username
 		}
 		body, _ := ioutil.ReadAll(c.Request.Body)
-		record := system.SysOperationRecord{
+		record := system.SysAuditLog{
 			Ip:     c.ClientIP(),
 			Method: c.Request.Method,
 			Path:   c.Request.URL.Path,

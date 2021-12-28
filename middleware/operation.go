@@ -19,7 +19,7 @@ import (
 
 var operationRecordService = service.ServiceGroupApp.SystemServiceGroup.OperationRecordService
 
-func OperationRecord() gin.HandlerFunc {
+func SysAuditLog() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var body []byte
 		var userId int
@@ -42,7 +42,7 @@ func OperationRecord() gin.HandlerFunc {
 			}
 			userId = id
 		}
-		record := system.SysOperationRecord{
+		record := system.SysAuditLog{
 			Ip:     c.ClientIP(),
 			Method: c.Request.Method,
 			Path:   c.Request.URL.Path,
